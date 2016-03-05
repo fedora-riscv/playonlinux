@@ -3,7 +3,7 @@ Version: 4.2.10
 Summary: Graphical front-end for Wine
 License: GPLv3
 URL: https://www.playonlinux.com
-Release: 5%{?dist}
+Release: 6%{?dist}
 Requires: unzip
 Requires: wine
 Requires: wget
@@ -59,7 +59,7 @@ setup your Wine prefix and download any required Windows libraries.
 %autosetup -n POL-POM-4-%{version} -p1
 
 %build
-%make_build
+CFLAGS="$RPM_OPT_FLAGS" %make_build
 
 %install
 %make_install
@@ -85,6 +85,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/PlayOnLin
 %{_libexecdir}/playonlinux-check_dd
 
 %changelog
+* Sat Mar  5 2016 Ville Skyttä <ville.skytta@iki.fi> - 4.2.10-6
+- Build with $RPM_OPT_FLAGS
+
 * Fri Jan 22 2016 Jiri Konecny <jkonecny@redhat.com> 4.2.10-5
 - Add patch which will fix installation of locales to the system
 
