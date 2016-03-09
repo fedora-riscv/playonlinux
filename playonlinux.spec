@@ -3,7 +3,7 @@ Version: 4.2.10
 Summary: Graphical front-end for Wine
 License: GPLv3
 URL: https://www.playonlinux.com
-Release: 6%{?dist}
+Release: 7%{?dist}
 Requires: unzip
 Requires: wine
 Requires: wget
@@ -44,6 +44,9 @@ Patch5: 0006-Change-Makefile-to-install-appdata.xml-file.patch
 # Install lang files correctly to the system
 # https://github.com/PlayOnLinux/POL-POM-4/pull/37
 Patch6: 0007-Install-lang-files-correctly.patch
+# Fix bad path in desktop file
+# https://github.com/PlayOnLinux/POL-POM-4/pull/40
+Patch7: 0008-Fix-bad-icon-path-in-Desktop-file.patch
 
 %global BUILD_DIR %{buildroot}/%{_datadir}/%{name}
 
@@ -85,6 +88,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/PlayOnLin
 %{_libexecdir}/playonlinux-check_dd
 
 %changelog
+* Wed Mar  9 2016 Jiri Konecny <jkonecny@redhat.com> - 4.2.10-7
+- Apply patch which fixing bad icon path in a desktop file
+
 * Sat Mar  5 2016 Ville Skyttä <ville.skytta@iki.fi> - 4.2.10-6
 - Build with $RPM_OPT_FLAGS
 
