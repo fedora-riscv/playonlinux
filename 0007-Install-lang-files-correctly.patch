@@ -1,4 +1,4 @@
-From d7a33c3043b2590694b843ca6405ffe8c0f50dba Mon Sep 17 00:00:00 2001
+From 7edafce9c4dc19e3c323b73e62681001234ead81 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ji=C5=99=C3=AD=20Kone=C4=8Dn=C3=BD?=
  <DragonLichcz@gmail.com>
 Date: Fri, 22 Jan 2016 21:03:39 +0100
@@ -10,7 +10,7 @@ To use installed locales DEBIAN_PACKAGE value must be set to true.
  1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/Makefile b/Makefile
-index a24755a..2242fa6 100644
+index a4fca7d..511f344 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -53,6 +53,8 @@ build:
@@ -22,15 +22,15 @@ index a24755a..2242fa6 100644
  
  install:
  	install -d $(bindir)
-@@ -62,6 +64,7 @@ install:
- 	install -d $(sharedir)/appdata
+@@ -61,6 +63,7 @@ install:
+ 	install -d $(sharedir)/applications
  	install -d $(sharedir)/playonlinux/bin
  	install -d $(sharedir)/man/man1
 +	install -d $(sharedir)/locale
  	$(GZIP) -c ./doc/playonlinux-pkg.1 > $(sharedir)/man/man1/playonlinux-pkg.1.gz
  	$(GZIP) -c ./doc/playonlinux.1 > $(sharedir)/man/man1/playonlinux.1.gz
  	cp ./etc/PlayOnLinux.desktop $(sharedir)/applications/PlayOnLinux.desktop
-@@ -72,7 +75,8 @@ install:
+@@ -70,7 +73,8 @@ install:
  	cp ./bin/{playonlinux,playonlinux-pkg} $(bindir)/
  	cp ./bin/playonlinux-check_dd $(execdir)/
  	cp ./{playonlinux*,README.md,TRANSLATORS,CHANGELOG.md,LICENCE} $(sharedir)/playonlinux/
@@ -41,5 +41,5 @@ index a24755a..2242fa6 100644
  changelog:
  	(GIT_DIR=.git git log > .changelog.tmp && mv .changelog.tmp ChangeLog; rm -f .changelog.tmp) || (touch ChangeLog; echo 'git directory not found: installing possibly empty changelog.' >&2)
 -- 
-2.7.4
+2.5.0
 
