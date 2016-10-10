@@ -3,7 +3,7 @@ Version: 4.2.10
 Summary: Graphical front-end for Wine
 License: GPLv3
 URL: https://www.playonlinux.com
-Release: 8%{?dist}
+Release: 9%{?dist}
 Requires: unzip
 Requires: wine
 Requires: wget
@@ -50,6 +50,9 @@ Patch7: 0008-Fix-bad-icon-path-in-Desktop-file.patch
 # Update AppData.xml with new values
 # https://github.com/PlayOnLinux/POL-POM-4/pull/41
 Patch8: 0009-Update-PlayOnLinux.appdata.xml-to-new-format.patch
+# Fix GUI layouts on Wayland
+# https://github.com/PlayOnLinux/POL-POM-4/pull/42
+Patch9: 0010-Fix-GUI-layouts-on-Wayland.patch
 
 %global BUILD_DIR %{buildroot}/%{_datadir}/%{name}
 
@@ -91,6 +94,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/PlayOnLin
 %{_libexecdir}/playonlinux-check_dd
 
 %changelog
+* Mon Oct 10 2016 Jiri Konecny <jkonecny@redhat.com> - 4.2.10-9
+- Add patch to fix GUI layout issues on Wayland
+
 * Sat Sep  3 2016 Jiri Konecny <jkonecny@redhat.com> - 4.2.10-8
 - Add new patch for the updated appdata.xml file
 - Improve old Patch2 for desktop file
