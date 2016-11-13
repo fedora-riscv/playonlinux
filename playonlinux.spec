@@ -3,7 +3,12 @@ Version: 4.2.10
 Summary: Graphical front-end for Wine
 License: GPLv3
 URL: https://www.playonlinux.com
-Release: 9%{?dist}
+Release: 10%{?dist}
+Source0: https://github.com/PlayOnLinux/POL-POM-4/archive/%{version}.tar.gz
+
+# Wine supported on these arches
+ExclusiveArch: %{arm} aarch64 %{ix86} x86_64
+
 Requires: unzip
 Requires: wine
 Requires: wget
@@ -20,7 +25,6 @@ BuildRequires: python2 > 2.4
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
 BuildRequires: libappstream-glib
-Source0: https://github.com/PlayOnLinux/POL-POM-4/archive/%{version}.tar.gz
 
 # Add documentation to playonlinux
 # Add Makefile to build and install playonlinux
@@ -94,6 +98,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/PlayOnLin
 %{_libexecdir}/playonlinux-check_dd
 
 %changelog
+* Sun Nov 13 2016 Peter Robinson <pbrobinson@fedoraproject.org> 4.2.10-10
+- Define ExclusiveArch with arches wine supports
+
 * Mon Oct 10 2016 Jiri Konecny <jkonecny@redhat.com> - 4.2.10-9
 - Add patch to fix GUI layout issues on Wayland
 
