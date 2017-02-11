@@ -3,7 +3,7 @@ Version: 4.2.10
 Summary: Graphical front-end for Wine
 License: GPLv3
 URL: https://www.playonlinux.com
-Release: 10%{?dist}
+Release: 11%{?dist}
 Source0: https://github.com/PlayOnLinux/POL-POM-4/archive/%{version}.tar.gz
 
 # Wine supported on these arches
@@ -98,6 +98,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/PlayOnLin
 %{_libexecdir}/playonlinux-check_dd
 
 %changelog
+* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.10-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Sun Nov 13 2016 Peter Robinson <pbrobinson@fedoraproject.org> 4.2.10-10
 - Define ExclusiveArch with arches wine supports
 
