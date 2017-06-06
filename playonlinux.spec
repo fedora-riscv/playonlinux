@@ -1,9 +1,9 @@
 Name: playonlinux
-Version: 4.2.10
+Version: 4.2.11
 Summary: Graphical front-end for Wine
 License: GPLv3
 URL: https://www.playonlinux.com
-Release: 11%{?dist}
+Release: 1%{?dist}
 Source0: https://github.com/PlayOnLinux/POL-POM-4/archive/%{version}.tar.gz
 
 # Wine supported on these arches
@@ -26,38 +26,6 @@ BuildRequires: desktop-file-utils
 BuildRequires: gettext
 BuildRequires: libappstream-glib
 
-# Add documentation to playonlinux
-# Add Makefile to build and install playonlinux
-# https://github.com/PlayOnLinux/POL-POM-4/pull/33
-Patch0: 0001-Add-Makefile-to-build-and-install-playonlinux.patch
-# Change check_gl to use compiled version of check dd
-# https://github.com/PlayOnLinux/POL-POM-4/pull/33
-Patch1: 0002-Change-check_gl-to-use-compiled-version-of-check_dd.patch
-# Updated desktop file for the new format
-# https://github.com/PlayOnLinux/POL-POM-4/pull/35
-Patch2: 0003-Updated-desktop-file-for-the-new-format.patch
-# Move build check_dd to /usr/libexec as says FHS
-# https://github.com/PlayOnLinux/POL-POM-4/pull/33
-Patch3: 0004-Move-build-check_dd-to-usr-libexec-as-says-FHS.patch
-# Add appdata.xml which is used for software center
-# https://github.com/PlayOnLinux/POL-POM-4/pull/36
-Patch4: 0005-Add-appdata.xml.patch
-# Change Makefile to use appdata.xml
-# https://github.com/PlayOnLinux/POL-POM-4/pull/36
-Patch5: 0006-Change-Makefile-to-install-appdata.xml-file.patch
-# Install lang files correctly to the system
-# https://github.com/PlayOnLinux/POL-POM-4/pull/37
-Patch6: 0007-Install-lang-files-correctly.patch
-# Fix bad path in desktop file
-# https://github.com/PlayOnLinux/POL-POM-4/pull/40
-Patch7: 0008-Fix-bad-icon-path-in-Desktop-file.patch
-# Update AppData.xml with new values
-# https://github.com/PlayOnLinux/POL-POM-4/pull/41
-Patch8: 0009-Update-PlayOnLinux.appdata.xml-to-new-format.patch
-# Fix GUI layouts on Wayland
-# https://github.com/PlayOnLinux/POL-POM-4/pull/42
-Patch9: 0010-Fix-GUI-layouts-on-Wayland.patch
-
 %global BUILD_DIR %{buildroot}/%{_datadir}/%{name}
 
 %description
@@ -69,7 +37,7 @@ can install desired application with a few clicks. It will automatically
 setup your Wine prefix and download any required Windows libraries.
 
 %prep
-%autosetup -n POL-POM-4-%{version} -p1
+%autosetup -n POL-POM-4-%{version}
 
 %build
 CFLAGS="$RPM_OPT_FLAGS" %make_build
@@ -98,6 +66,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/PlayOnLin
 %{_libexecdir}/playonlinux-check_dd
 
 %changelog
+* Wed May 31 2017 Fedora Release Monitoring  <release-monitoring@fedoraproject.org> - 4.2.11-1
+- Update to 4.2.11 (#1457013)
+- Remove patches contained in the new release
+
 * Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.10-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
