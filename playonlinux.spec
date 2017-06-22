@@ -1,5 +1,5 @@
 Name: playonlinux
-Version: 4.2.11
+Version: 4.2.12
 Summary: Graphical front-end for Wine
 License: GPLv3
 URL: https://www.playonlinux.com
@@ -66,6 +66,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/PlayOnLin
 %{_libexecdir}/playonlinux-check_dd
 
 %changelog
+* Thu Jun 22 2017 Fedora Release Monitoring  <release-monitoring@fedoraproject.org> - 4.2.12-1
+- Update to 4.2.12 (#1463027)
+
 * Wed May 31 2017 Fedora Release Monitoring  <release-monitoring@fedoraproject.org> - 4.2.11-1
 - Update to 4.2.11 (#1457013)
 - Remove patches contained in the new release
