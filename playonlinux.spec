@@ -19,6 +19,7 @@ Requires: ImageMagick
 Requires: cabextract
 Requires: icoutils
 Requires: p7zip-plugins
+BuildRequires:  gcc
 BuildRequires: gzip
 BuildRequires: mesa-libGL-devel
 BuildRequires: python2 > 2.4
