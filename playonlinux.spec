@@ -3,11 +3,11 @@
 %global _python_bytecompile_extra 1
 
 Name: playonlinux
-Version: 4.2.12
+Version: 4.3.3
 Summary: Graphical front-end for Wine
 License: GPLv3
 URL: https://www.playonlinux.com
-Release: 5%{?dist}
+Release: 1%{?dist}
 Source0: https://github.com/PlayOnLinux/POL-POM-4/archive/%{version}.tar.gz
 
 # Wine supported on these arches
@@ -23,6 +23,7 @@ Requires: ImageMagick
 Requires: cabextract
 Requires: icoutils
 Requires: p7zip-plugins
+Requires: jq
 BuildRequires:  gcc
 BuildRequires: gzip
 BuildRequires: mesa-libGL-devel
@@ -55,6 +56,9 @@ sed -i '1{/^#!\//d}' %{BUILD_DIR}/python/gui_server.py \
           %{BUILD_DIR}/tests/python/test_versionlower.py \
           %{BUILD_DIR}/tests/bash/test-versionlower
 
+grep -lZsr "#!/usr/bin/env python" %{BUILD_DIR}/python/ | xargs -0 -l sed -i -e "s%#\!/usr/bin/env python%#\!/usr/bin/env python2%"
+grep -lZsr "#!/usr/bin/python" %{BUILD_DIR}/python/ | xargs -0 -l sed -i -e "s%#\!/usr/bin/python%#\!/usr/bin/python2%"
+
 %check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/PlayOnLinux.desktop
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/PlayOnLinux.appdata.xml
@@ -71,6 +75,11 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/PlayOnLin
 %{_libexecdir}/playonlinux-check_dd
 
 %changelog
+* Mon Dec 17 2018 Jiri Konecny <jkonecny@redhat.com> - 4.3.3-1
+- Update to 4.3.3
+- Fix python shebangs to python2
+- Add new runtime dependency jq
+
 * Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.12-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
