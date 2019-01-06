@@ -3,7 +3,7 @@
 %global _python_bytecompile_extra 1
 
 Name: playonlinux
-Version: 4.3.3
+Version: 4.3.4
 Summary: Graphical front-end for Wine
 License: GPLv3
 URL: https://www.playonlinux.com
@@ -52,9 +52,9 @@ CFLAGS="$RPM_OPT_FLAGS" %make_build
 %make_install
 %find_lang pol
 
-sed -i '1{/^#!\//d}' %{BUILD_DIR}/python/gui_server.py \
-          %{BUILD_DIR}/tests/python/test_versionlower.py \
-          %{BUILD_DIR}/tests/bash/test-versionlower
+sed -i '1{/^#!\//d}' %{BUILD_DIR}/python/setupwindow/gui_server.py \
+                     %{BUILD_DIR}/tests/python/test_versionlower.py \
+                     %{BUILD_DIR}/tests/bash/test-versionlower
 
 grep -lZsr "#!/usr/bin/env python" %{BUILD_DIR}/python/ | xargs -0 -l sed -i -e "s%#\!/usr/bin/env python%#\!/usr/bin/env python2%"
 grep -lZsr "#!/usr/bin/python" %{BUILD_DIR}/python/ | xargs -0 -l sed -i -e "s%#\!/usr/bin/python%#\!/usr/bin/python2%"
@@ -75,6 +75,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/PlayOnLin
 %{_libexecdir}/playonlinux-check_dd
 
 %changelog
+* Sun Jan 06 2019 Jiri Konecny <jkonecny@redhat.com> - 4.3.4-1
+- Update to 4.3.4
+- Update position of gui_server source code for sed
+
 * Mon Dec 17 2018 Jiri Konecny <jkonecny@redhat.com> - 4.3.3-1
 - Update to 4.3.3
 - Fix python shebangs to python2
