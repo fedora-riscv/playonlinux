@@ -24,6 +24,7 @@ Requires: cabextract
 Requires: icoutils
 Requires: p7zip-plugins
 Requires: jq
+Requires: gnupg
 BuildRequires:  gcc
 BuildRequires: gzip
 BuildRequires: mesa-libGL-devel
