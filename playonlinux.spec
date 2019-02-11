@@ -7,7 +7,7 @@ Version: 4.3.4
 Summary: Graphical front-end for Wine
 License: GPLv3
 URL: https://www.playonlinux.com
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: https://github.com/PlayOnLinux/POL-POM-4/archive/%{version}.tar.gz
 
 # Wine supported on these arches
@@ -76,6 +76,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/PlayOnLin
 %{_libexecdir}/playonlinux-check_dd
 
 %changelog
+* Mon Feb 11 2019 Jiri Konecny <jkonecny@redhat.com> - 4.3.4-2
+- Add gnupg as new dependency (Artem Polishchuk <ego.cordatus@gmail.com>)
+
 * Sun Jan 06 2019 Jiri Konecny <jkonecny@redhat.com> - 4.3.4-1
 - Update to 4.3.4
 - Update position of gui_server source code for sed
