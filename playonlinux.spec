@@ -7,7 +7,7 @@ Version: 4.3.4
 Summary: Graphical front-end for Wine
 License: GPLv3
 URL: https://www.playonlinux.com
-Release: 3%{?dist}
+Release: 4%{?dist}
 Source0: https://github.com/PlayOnLinux/POL-POM-4/archive/%{version}.tar.gz
 
 # Wine supported on these arches
@@ -76,6 +76,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/PlayOnLin
 %{_libexecdir}/playonlinux-check_dd
 
 %changelog
+* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
 * Mon Feb 11 2019 Jiri Konecny <jkonecny@redhat.com> - 4.3.4-3
 - Add gnupg as new dependency (Artem Polishchuk <ego.cordatus@gmail.com>)
 
