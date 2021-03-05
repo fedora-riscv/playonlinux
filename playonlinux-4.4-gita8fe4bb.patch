@@ -1,0 +1,562 @@
+From 9ff4b76168a7c64e4a2de7be5158618fbb1242a2 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Quentin=20P=C3=A2ris?= <github@playonlinux.com>
+Date: Sun, 17 May 2020 16:15:30 +0200
+Subject: [PATCH 01/13] Update CHANGELOG.md
+
+---
+ CHANGELOG.md | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index a589625c3..cde2d82c4 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -1,3 +1,6 @@
++# 4.4
++* Python 3 support 
++
+ # 4.3.4
+ * Fixed some bugs in the wineversion process
+ * Begining of code cleaning and refactoring
+
+From 788fad16eff4904193e4e9c52b23672535a23c33 Mon Sep 17 00:00:00 2001
+From: Gilles <gilles.wiber@gmail.com>
+Date: Sat, 30 May 2020 11:19:35 +0200
+Subject: [PATCH 02/13] Removing SetSpacing funtion
+
+---
+ python/configurewindow/ConfigureWindow.py         | 2 +-
+ python/configurewindow/ConfigureWindowNotebook.py | 2 +-
+ python/debug.py                                   | 2 +-
+ python/install/InstallWindow.py                   | 2 +-
+ python/mainwindow.py                              | 2 +-
+ python/options.py                                 | 2 +-
+ python/setupwindow/POL_SetupFrame.py              | 2 +-
+ python/wine_versions/WineVersionsNotebook.py      | 4 ++--
+ 8 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/python/configurewindow/ConfigureWindow.py b/python/configurewindow/ConfigureWindow.py
+index 30f779db1..a26321437 100755
+--- a/python/configurewindow/ConfigureWindow.py
++++ b/python/configurewindow/ConfigureWindow.py
+@@ -75,7 +75,7 @@ def __init__(self,parent,id,title,shortcut, isPrefix = False):
+         self.Bind(wx.EVT_BUTTON, self.DeletePrefix, id=1002)
+ 
+ 
+-        self.list_game.SetSpacing(0)
++        #self.list_game.SetSpacing(0)
+         self.list_game.SetImageList(self.images)
+ 
+ 
+diff --git a/python/configurewindow/ConfigureWindowNotebook.py b/python/configurewindow/ConfigureWindowNotebook.py
+index 8b4e387ea..973d9bbd3 100644
+--- a/python/configurewindow/ConfigureWindowNotebook.py
++++ b/python/configurewindow/ConfigureWindowNotebook.py
+@@ -269,7 +269,7 @@ def Packages(self, nom):
+ 
+         self.Menu = wx.TreeCtrl(self.panelPackages, 99, pos=(15, 75), size=(530, 260),
+                                 style=wx.TR_HIDE_ROOT | wx.TR_FULL_ROW_HIGHLIGHT | Variables.widget_borders)
+-        self.Menu.SetSpacing(0);
++        #self.Menu.SetSpacing(0);
+         self.Menu.SetImageList(self.imagePackages)
+         self.imagePackages.RemoveAll()
+ 
+diff --git a/python/debug.py b/python/debug.py
+index 0221e89c0..43e8cf021 100755
+--- a/python/debug.py
++++ b/python/debug.py
+@@ -60,7 +60,7 @@ def __init__(self,parent,id,title,logcheck="/dev/null",logtype=None):
+         self.Bind(wx.EVT_TREE_SEL_CHANGED, self.analyseLog, id=900)
+ 
+ 
+-        self.list_game.SetSpacing(0);
++        #self.list_game.SetSpacing(0);
+         self.list_game.SetImageList(self.images)
+ 
+ 
+diff --git a/python/install/InstallWindow.py b/python/install/InstallWindow.py
+index 27a6b51a5..5b584774d 100755
+--- a/python/install/InstallWindow.py
++++ b/python/install/InstallWindow.py
+@@ -183,7 +183,7 @@ def _createAppNavigation(self):
+         self.appsList = wx.TreeCtrl(self.appNavigationPanel, 106,
+                                     style=wx.TR_HIDE_ROOT | wx.TR_FULL_ROW_HIGHLIGHT | Variables.widget_borders)
+         self.appsList.SetImageList(self.imagesapps)
+-        self.appsList.SetSpacing(0)
++        #self.appsList.SetSpacing(0)
+ 
+         self.appNavigationSizer.AddSpacer(10)
+         self.appNavigationSizer.Add(self.appsList, 4, wx.EXPAND, 5)
+diff --git a/python/mainwindow.py b/python/mainwindow.py
+index 7c21142df..8df1ff14b 100755
+--- a/python/mainwindow.py
++++ b/python/mainwindow.py
+@@ -240,7 +240,7 @@ def __init__(self, parent, id, title):
+ 
+         ## List game
+         self.list_game = wx.TreeCtrl(self, 105, style=wx.TR_HIDE_ROOT | wx.TR_FULL_ROW_HIGHLIGHT)
+-        self.list_game.SetSpacing(0)
++        #self.list_game.SetSpacing(0)
+         self.list_game.SetIndent(5)
+         self.list_game.SetImageList(self.images)
+         self.menu_gauche = wx.Panel(self, -1)
+diff --git a/python/options.py b/python/options.py
+index a54c11000..723073ce4 100755
+--- a/python/options.py
++++ b/python/options.py
+@@ -187,7 +187,7 @@ def Plugins(self, nom):
+         self.txtPlugin = wx.StaticText(self.panelPlugins, -1, _("Installed plugins"), size=wx.DefaultSize)
+         self.txtPlugin.SetFont(self.fontTitle)
+         self.pluginlist = wx.TreeCtrl(self.panelPlugins, 220, style=Variables.widget_borders|wx.TR_HIDE_ROOT|wx.TR_FULL_ROW_HIGHLIGHT)
+-        self.pluginlist.SetSpacing(0)
++        #self.pluginlist.SetSpacing(0)
+ 
+         self.pluginImgList = wx.ImageList(16,16)
+ 
+diff --git a/python/setupwindow/POL_SetupFrame.py b/python/setupwindow/POL_SetupFrame.py
+index 66bee8533..33d73d38a 100755
+--- a/python/setupwindow/POL_SetupFrame.py
++++ b/python/setupwindow/POL_SetupFrame.py
+@@ -212,7 +212,7 @@ def _createUI(self):
+                                      style=wx.TR_HIDE_ROOT | wx.TR_FULL_ROW_HIGHLIGHT | Variables.widget_borders,
+                                      pos=(25, 25), size=(460, 220))
+         self.MenuGames.SetImageList(self.images)
+-        self.MenuGames.SetSpacing(0)
++        #self.MenuGames.SetSpacing(0)
+ 
+         # Login
+         self.login = wx.StaticText(self.contentPanel, -1, _("Login: "), pos=(20, 40), size=(460, 20))
+diff --git a/python/wine_versions/WineVersionsNotebook.py b/python/wine_versions/WineVersionsNotebook.py
+index e088abeb2..ec5f12535 100644
+--- a/python/wine_versions/WineVersionsNotebook.py
++++ b/python/wine_versions/WineVersionsNotebook.py
+@@ -39,7 +39,7 @@ def _createInstalledWineVersionsPanel(self, arch):
+         self.installedWineVersionsTreeSelector[arch] = wx.TreeCtrl(installedWineVersionsPanel, 107 + self.calculateEventDelta(arch),
+                                                                    style=wx.TR_HIDE_ROOT | wx.TR_FULL_ROW_HIGHLIGHT | Variables.widget_borders)
+         self.installedWineVersionsTreeSelector[arch].SetImageList(self.imagesapps_i[arch])
+-        self.installedWineVersionsTreeSelector[arch].SetSpacing(0)
++        #self.installedWineVersionsTreeSelector[arch].SetSpacing(0)
+         installedWineVersionsSizer.Add(self.installedWineVersionsTreeSelector[arch], 1, wx.EXPAND)
+         installedWineVersionsSizer.AddSpacer(10)
+ 
+@@ -55,7 +55,7 @@ def _createAvailableWineVersionsPanel(self, arch):
+                                                                    style=wx.TR_HIDE_ROOT | wx.TR_FULL_ROW_HIGHLIGHT | Variables.widget_borders,
+                                                                    size=(320, 300), pos=(10, 35))
+         self.availableWineVersionsTreeSelector[arch].SetImageList(self.imagesapps[arch])
+-        self.availableWineVersionsTreeSelector[arch].SetSpacing(0)
++        #self.availableWineVersionsTreeSelector[arch].SetSpacing(0)
+         availableWineVersionsSizer.Add(self.availableWineVersionsTreeSelector[arch], 1, wx.EXPAND)
+         availableWineVersionsSizer.AddSpacer(10)
+ 
+
+From 77a3ca3be293ebcafa2400703a5dd4079a5f200b Mon Sep 17 00:00:00 2001
+From: Gilles <gilles.wiber@gmail.com>
+Date: Sat, 30 May 2020 11:32:13 +0200
+Subject: [PATCH 03/13] Solving pluging manager issue (extension management)
+
+---
+ python/options.py | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/python/options.py b/python/options.py
+index 723073ce4..f40f26a70 100755
+--- a/python/options.py
++++ b/python/options.py
+@@ -229,9 +229,9 @@ def generateExts(self):
+             line = line.replace("\n","")
+             line = line.split("=")
+             liner = "Line %s" % i
+-            self.list_ext.InsertStringItem(i, liner)
+-            self.list_ext.SetStringItem(i, 0, line[0])
+-            self.list_ext.SetStringItem(i, 1, line[1])
++            self.list_ext.InsertItem(i, liner)
++            self.list_ext.SetItem(i, 0, line[0])
++            self.list_ext.SetItem(i, 1, line[1])
+             i += 1
+         self.app_installed_text.Hide()
+         self.app_installed.Hide()
+@@ -249,8 +249,9 @@ def editExt(self, event):
+         self.app_installed.Show()
+         self.delete_ext.Show()
+ 
+-        self.app_selected = self.exts[event.m_itemIndex].split("=")[1]
+-        self.ext_selected = self.exts[event.m_itemIndex].split("=")[0]
++        ind = event.GetIndex()
++        self.app_selected = self.list_ext.GetItem(ind,1).GetText()
++        self.ext_selected = self.list_ext.GetItem(ind,0).GetText()
+ 
+         self.app_installed.SetValue(self.app_selected.replace("\n","").replace("\r",""))
+ 
+
+From a656f5b2bdd23375e3d9547a9c38ccf99e2dc670 Mon Sep 17 00:00:00 2001
+From: Gilles <gilles.wiber@gmail.com>
+Date: Sat, 30 May 2020 14:34:28 +0200
+Subject: [PATCH 04/13] Solving different issue on debug window
+
+---
+ python/debug.py         | 7 ++++---
+ python/lib/Variables.py | 2 +-
+ 2 files changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/python/debug.py b/python/debug.py
+index 43e8cf021..1e344edc8 100755
+--- a/python/debug.py
++++ b/python/debug.py
+@@ -38,7 +38,7 @@ def __init__(self,parent,id,title,logcheck="/dev/null",logtype=None):
+ 
+         wx.Frame.__init__(self, parent, -1, title, size = (810, 600+Variables.windows_add_size), style = wx.CLOSE_BOX | wx.CAPTION | wx.MINIMIZE_BOX)
+         self.SetIcon(wx.Icon(Variables.playonlinux_env+"/etc/playonlinux.png", wx.BITMAP_TYPE_ANY))
+-        self.SetTitle(_('{0} debugger').format(os.environ["APPLICATION_TITLE"]))
++        self.SetTitle(title)
+         #self.panelFenp = wx.Panel(self, -1)
+ 
+         self.prefixes_item = {}
+@@ -79,7 +79,7 @@ def __init__(self,parent,id,title,logcheck="/dev/null",logtype=None):
+         self.log_reader = wx.TextCtrl(self.panelText, 100, "", size=wx.Size(590,500), pos=(2,2), style=Variables.widget_borders|wx.TE_RICH2|wx.TE_READONLY|wx.TE_MULTILINE)
+         self.log_reader.Bind(wx.EVT_SET_FOCUS, self.OnFocus)
+         self.openTextEdit = wx.Button(self.panelNotEmpty, 101, _("Locate this logfile"), size=(400,30), pos=(70,512))
+-        self.reportProblem = wx.Button(self.panelNotEmpty, 102, "", size=(400,30), pos=(70,552))
++        self.reportProblem = wx.Button(self.panelNotEmpty, 102, _("Bug report"), size=(400,30), pos=(70,552))
+ 
+         if(logcheck == "/dev/null"):
+             self.HideLogFile()
+@@ -95,7 +95,8 @@ def bugReport(self, event):
+         new_env = os.environ
+         new_env["LOGTITLE"] = self.logname
+         subprocess.Popen(["bash", Variables.playonlinux_env+"/bash/bug_report"], env=new_env)
+-        self.reportProblem.Enable(False)
++        # Doesn't work if cancel on POL Window : need to find another way ...
++        #self.reportProblem.Enable(False)
+ 
+     def locate(self, event):
+         if(self.logtype == 0):
+diff --git a/python/lib/Variables.py b/python/lib/Variables.py
+index 055fe17f9..8bed7601b 100755
+--- a/python/lib/Variables.py
++++ b/python/lib/Variables.py
+@@ -51,7 +51,7 @@
+         windows_add_size = 0
+         windows_add_playonmac = 0
+     else:
+-        windows_add_size = dpiFetcher().fetch_extra_pixel()
++        windows_add_size = dpiFetcher().fetch_extra_pixel()+60
+         windows_add_playonmac = 0
+ 
+     widget_borders = wx.RAISED_BORDER
+
+From 02beab05d4255802c26db20a18787349e9b15bbc Mon Sep 17 00:00:00 2001
+From: Gilles <gilles.wiber@gmail.com>
+Date: Sat, 30 May 2020 15:17:33 +0200
+Subject: [PATCH 05/13] Solving small bugs
+
+---
+ python/configurewindow/ConfigureWindowNotebook.py | 2 ++
+ python/install/InstallWindow.py                   | 2 +-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/python/configurewindow/ConfigureWindowNotebook.py b/python/configurewindow/ConfigureWindowNotebook.py
+index 973d9bbd3..296443e66 100644
+--- a/python/configurewindow/ConfigureWindowNotebook.py
++++ b/python/configurewindow/ConfigureWindowNotebook.py
+@@ -467,6 +467,8 @@ def misc_button(self, event):
+             self.FileDialog.ShowModal()
+             if (self.FileDialog.GetPath() != ""):
+                 filename = self.FileDialog.GetPath()
++                if not os.path.isfile(filename):
++                    return
+                 dirname = os.path.dirname(filename)
+                 if (self.s_isPrefix == True):
+                     subprocess.Popen(["bash", Variables.playonlinux_env + "/bash/POL_Command", "--prefix",
+diff --git a/python/install/InstallWindow.py b/python/install/InstallWindow.py
+index 5b584774d..2e49e4a18 100755
+--- a/python/install/InstallWindow.py
++++ b/python/install/InstallWindow.py
+@@ -333,7 +333,7 @@ def closeapp(self, event):
+ 
+     def manual(self, event):
+         self.live = 1
+-        self.installapp(self)
++        self.installapp(event)
+ 
+     def showStars(self, stars):
+         starWidth = 20
+
+From e3a924fcf4ff3409d31f0956d3802d6a65956ae2 Mon Sep 17 00:00:00 2001
+From: ovari <17465872+ovari@users.noreply.github.com>
+Date: Fri, 24 Jul 2020 19:42:50 +1000
+Subject: [PATCH 06/13] Update README.md
+
+---
+ README.md | 49 ++++++++++++++++++++++++++++++++++---------------
+ 1 file changed, 34 insertions(+), 15 deletions(-)
+
+diff --git a/README.md b/README.md
+index 9b6ca31ca..97795c427 100644
+--- a/README.md
++++ b/README.md
+@@ -1,28 +1,47 @@
+-POL-POM-4
+-=========
++# PlayOnLinux and PlayOnMac 4 (POL-POM-4)
+ 
+-PlayOnLinux 4 repository
+-Note: PlayOnLinux 5 is currently under development. Please clone POL-POM-5 repository if you want to contribute
++Note: [Phoenicis PlayOnLinux and PlayOnMac 5](https://www.phoenicis.org/) is currently under development. Please clone [Phoenicis PlayOnLinux and PlayOnMac 5 repository](https://github.com/PhoenicisOrg/phoenicis) if you want to contribute.
+ 
+-What is PlayOnLinux?
+-=====================
++PlayOnLinux and PlayOnMac 4 allows you to install and use non-native applications on your favorite operating system.
++
++Supported operating systems:
++
++* Linux
++* Mac OSX
++
++Supported engines:
++
++* [Wine](https://www.winehq.org/)
++
++
++# What is PlayOnLinux?
+ 
+ PlayOnLinux is a piece of software which allows you to easily install and use numerous games and apps designed to run with Microsoft® Windows®.
++
+ Few games are compatible with GNU/Linux at the moment and it certainly is a factor preventing the migration to this system. PlayOnLinux brings a cost-free, accessible and efficient solution to this problem.
+ 
+ 
+-What are PlayOnLinux's features?
+-================================
++# What are PlayOnLinux's features?
+ 
+ Here is a non-exhaustive list of the interesting points to know:
++* You don't have to own a Windows license to use PlayOnLinux.
++* PlayOnLinux is based on [Wine](https://www.winehq.org/), and so profits from all its features yet it keeps the user from having to deal with its complexity.
++* PlayOnLinux is free software.
++* PlayOnLinux uses [Bash](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29) and [Python](https://en.wikipedia.org/wiki/Python_(programming_language)).
+ 
+-You don't have to own a Windows license to use PlayOnLinux.
+-PlayOnLinux is based on Wine, and so profits from all its features yet it keeps the user from having to deal with its complexity.
+-PlayOnLinux is free software.
+-PlayOnLinux uses Bash and Python.
+ Nevertheless, PlayOnLinux has some bugs, as every piece of software:
+-
+-Occasional performance decrease (image may be less fluid and graphics less detailed).
+-Not all games are supported. Nevertheless, you can use our manual installation module.
++* Occasional performance decrease (image may be less fluid and graphics less detailed).
++* Not all games are supported. Nevertheless, you can use our manual installation module.
+ 
+ For more information, visit http://www.playonlinux.com
++
++
++## Translate
++PlayOnLinux/PlayOnMac 4 is localized using Launchpad: https://translations.launchpad.net/playonlinux
++If your language is not listed, please create an [issue](https://github.com/PlayOnLinux/POL-POM-4/issues).
++
++
++## Community
++* Issues or ideas: https://github.com/PhoenicisOrg/phoenicis/issues
++* Forums : http://www.playonlinux.com/en/forums.html
++* Slack : https://join.slack.com/phoenicis-org/shared_invite/MTkzMTMwMjM3MjcxLTE0OTY1MTQzNzktY2IzOTE2NmE3NA
+
+From 2fb13e328861264ee3a4f6d8979bb1ee018cea79 Mon Sep 17 00:00:00 2001
+From: ovari <17465872+ovari@users.noreply.github.com>
+Date: Fri, 24 Jul 2020 19:44:16 +1000
+Subject: [PATCH 07/13] Update README.md
+
+---
+ README.md | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/README.md b/README.md
+index 97795c427..c1e9ed033 100644
+--- a/README.md
++++ b/README.md
+@@ -21,10 +21,10 @@ PlayOnLinux is a piece of software which allows you to easily install and use nu
+ Few games are compatible with GNU/Linux at the moment and it certainly is a factor preventing the migration to this system. PlayOnLinux brings a cost-free, accessible and efficient solution to this problem.
+ 
+ 
+-# What are PlayOnLinux's features?
++# What are PlayOnLinux’s features?
+ 
+ Here is a non-exhaustive list of the interesting points to know:
+-* You don't have to own a Windows license to use PlayOnLinux.
++* You don’t have to own a Windows license to use PlayOnLinux.
+ * PlayOnLinux is based on [Wine](https://www.winehq.org/), and so profits from all its features yet it keeps the user from having to deal with its complexity.
+ * PlayOnLinux is free software.
+ * PlayOnLinux uses [Bash](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29) and [Python](https://en.wikipedia.org/wiki/Python_(programming_language)).
+
+From f4229ac83015a583d0c0e45445d28ee332321356 Mon Sep 17 00:00:00 2001
+From: ovari <17465872+ovari@users.noreply.github.com>
+Date: Fri, 24 Jul 2020 19:45:11 +1000
+Subject: [PATCH 08/13] Update README.md
+
+---
+ README.md | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/README.md b/README.md
+index c1e9ed033..75fbc5fae 100644
+--- a/README.md
++++ b/README.md
+@@ -6,8 +6,9 @@ PlayOnLinux and PlayOnMac 4 allows you to install and use non-native application
+ 
+ Supported operating systems:
+ 
+-* Linux
+-* Mac OSX
++* GNU/Linux
++* Mac OS X
++* macOS
+ 
+ Supported engines:
+ 
+
+From 6480e694154f4f24c4bf31babc7e9271574e04ca Mon Sep 17 00:00:00 2001
+From: ovari <17465872+ovari@users.noreply.github.com>
+Date: Fri, 24 Jul 2020 19:49:31 +1000
+Subject: [PATCH 09/13] Update README.md
+
+---
+ README.md | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/README.md b/README.md
+index 75fbc5fae..0d64a5962 100644
+--- a/README.md
++++ b/README.md
+@@ -6,9 +6,8 @@ PlayOnLinux and PlayOnMac 4 allows you to install and use non-native application
+ 
+ Supported operating systems:
+ 
+-* GNU/Linux
+-* Mac OS X
+-* macOS
++* [GNU/Linux](https://en.wikipedia.org/wiki/Linux)
++* [macOS](https://en.wikipedia.org/wiki/Apple_Macintosh_OS_X)
+ 
+ Supported engines:
+ 
+@@ -25,7 +24,7 @@ Few games are compatible with GNU/Linux at the moment and it certainly is a fact
+ # What are PlayOnLinux’s features?
+ 
+ Here is a non-exhaustive list of the interesting points to know:
+-* You don’t have to own a Windows license to use PlayOnLinux.
++* You don’t have to own a [Microsoft Windows](https://en.wikipedia.org/wiki/Microsoft_Windows) license to use PlayOnLinux.
+ * PlayOnLinux is based on [Wine](https://www.winehq.org/), and so profits from all its features yet it keeps the user from having to deal with its complexity.
+ * PlayOnLinux is free software.
+ * PlayOnLinux uses [Bash](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29) and [Python](https://en.wikipedia.org/wiki/Python_(programming_language)).
+
+From c4669305f256c4c16bc68a353239cbc8c5dae7ba Mon Sep 17 00:00:00 2001
+From: ovari <17465872+ovari@users.noreply.github.com>
+Date: Fri, 24 Jul 2020 19:50:31 +1000
+Subject: [PATCH 10/13] Update README.md
+
+---
+ README.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/README.md b/README.md
+index 0d64a5962..57fadfbb6 100644
+--- a/README.md
++++ b/README.md
+@@ -26,7 +26,7 @@ Few games are compatible with GNU/Linux at the moment and it certainly is a fact
+ Here is a non-exhaustive list of the interesting points to know:
+ * You don’t have to own a [Microsoft Windows](https://en.wikipedia.org/wiki/Microsoft_Windows) license to use PlayOnLinux.
+ * PlayOnLinux is based on [Wine](https://www.winehq.org/), and so profits from all its features yet it keeps the user from having to deal with its complexity.
+-* PlayOnLinux is free software.
++* PlayOnLinux is [free software](https://en.wikipedia.org/wiki/Free_software).
+ * PlayOnLinux uses [Bash](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29) and [Python](https://en.wikipedia.org/wiki/Python_(programming_language)).
+ 
+ Nevertheless, PlayOnLinux has some bugs, as every piece of software:
+
+From a6cc23d43375fca0e28e900a110d195be251ee20 Mon Sep 17 00:00:00 2001
+From: ovari <17465872+ovari@users.noreply.github.com>
+Date: Fri, 24 Jul 2020 20:12:36 +1000
+Subject: [PATCH 11/13] Update README.md
+
+---
+ README.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/README.md b/README.md
+index 57fadfbb6..0fe79f3fa 100644
+--- a/README.md
++++ b/README.md
+@@ -7,7 +7,7 @@ PlayOnLinux and PlayOnMac 4 allows you to install and use non-native application
+ Supported operating systems:
+ 
+ * [GNU/Linux](https://en.wikipedia.org/wiki/Linux)
+-* [macOS](https://en.wikipedia.org/wiki/Apple_Macintosh_OS_X)
++* [macOS](https://en.wikipedia.org/wiki/MacOS)
+ 
+ Supported engines:
+ 
+
+From 08e87ed0a78b0c7743935cd39b355db303157354 Mon Sep 17 00:00:00 2001
+From: ovari <17465872+ovari@users.noreply.github.com>
+Date: Sat, 25 Jul 2020 18:31:10 +1000
+Subject: [PATCH 12/13] Update README.md
+
+---
+ README.md | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/README.md b/README.md
+index 0fe79f3fa..3d00e65c1 100644
+--- a/README.md
++++ b/README.md
+@@ -6,8 +6,8 @@ PlayOnLinux and PlayOnMac 4 allows you to install and use non-native application
+ 
+ Supported operating systems:
+ 
+-* [GNU/Linux](https://en.wikipedia.org/wiki/Linux)
+-* [macOS](https://en.wikipedia.org/wiki/MacOS)
++* GNU/Linux
++* macOS
+ 
+ Supported engines:
+ 
+@@ -24,10 +24,10 @@ Few games are compatible with GNU/Linux at the moment and it certainly is a fact
+ # What are PlayOnLinux’s features?
+ 
+ Here is a non-exhaustive list of the interesting points to know:
+-* You don’t have to own a [Microsoft Windows](https://en.wikipedia.org/wiki/Microsoft_Windows) license to use PlayOnLinux.
++* You don’t have to own a Microsoft Windows license to use PlayOnLinux.
+ * PlayOnLinux is based on [Wine](https://www.winehq.org/), and so profits from all its features yet it keeps the user from having to deal with its complexity.
+ * PlayOnLinux is [free software](https://en.wikipedia.org/wiki/Free_software).
+-* PlayOnLinux uses [Bash](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29) and [Python](https://en.wikipedia.org/wiki/Python_(programming_language)).
++* PlayOnLinux uses Bash and Python.
+ 
+ Nevertheless, PlayOnLinux has some bugs, as every piece of software:
+ * Occasional performance decrease (image may be less fluid and graphics less detailed).
+
+From 2bf9ed2d321a26b48de83a13064f7b9f0db0dcd7 Mon Sep 17 00:00:00 2001
+From: rayderua <rayder.ua@gmail.com>
+Date: Mon, 5 Oct 2020 17:19:47 +0300
+Subject: [PATCH 13/13] fix split version to first 3 elements
+
+ValueError: invalid literal for int() with base 10: 'post2'
+
+Versions can contain not only digits (for example wx releases: 4.0.7, 4.0.7.post1, 4.0.7.post2, 4.1.0)
+---
+ python/lib/playonlinux.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/python/lib/playonlinux.py b/python/lib/playonlinux.py
+index 827db9202..3e87d90aa 100755
+--- a/python/lib/playonlinux.py
++++ b/python/lib/playonlinux.py
+@@ -278,11 +278,11 @@ def VersionLower(version1, version2):
+         else:
+             return False
+ 
+-    version1 = [ int(digit) for digit in version1[0].split(".") ]
++    version1 = [ int(digit) for digit in version1[0].split(".")[:3] ]
+     while len(version1) < 3:
+         version1.append(0)
+ 
+-    version2 = [ int(digit) for digit in version2[0].split(".") ]
++    version2 = [ int(digit) for digit in version2[0].split(".")[:3] ]
+     while len(version2) < 3:
+         version2.append(0)
+ 

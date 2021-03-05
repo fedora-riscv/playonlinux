@@ -1,81 +1,108 @@
-# This package depends on automagic byte compilation
-# https://fedoraproject.org/wiki/Changes/No_more_automagic_Python_bytecompilation_phase_2
-%global _python_bytecompile_extra 1
-
-Name: playonlinux
-Version: 4.3.4
-Summary: Graphical front-end for Wine
-License: GPLv3
-URL: https://www.playonlinux.com
-Release: 4%{?dist}
-Source0: https://github.com/PlayOnLinux/POL-POM-4/archive/%{version}.tar.gz
-
-# Wine supported on these arches
-ExclusiveArch: %{arm} aarch64 %{ix86} x86_64
-
-Requires: unzip
-Requires: wine
-Requires: wget
-Requires: xterm
-Requires: python2 > 2.4
-Requires: wxPython
-Requires: ImageMagick
-Requires: cabextract
-Requires: icoutils
-Requires: p7zip-plugins
-Requires: jq
-Requires: gnupg
-BuildRequires:  gcc
+Summary:       Graphical front-end for Wine
+Name:          playonlinux
+Version:       4.4
+Release:       2%{?dist}
+# playonlinux itself is GPLv3 but uses other source codes, breakdown:
+# GPLv2+: python/{configurewindow/ConfigureWindow,debug,mainwindow,options,wrapper}.py
+# GPLv2+: python/{install/InstallWindow,setupwindow/{POL_SetupFrame,gui_server}}.py
+# GPLv2+: python/wine_versions/WineVersionsWindow.py
+# MIT: src/check_direct_rendering.c
+License:       GPLv3 and GPLv2+ and MIT
+URL:           https://www.playonlinux.com/
+Source0:       https://github.com/PlayOnLinux/POL-POM-4/archive/%{version}/POL-POM-4-%{version}.tar.gz
+# Upstream changes since last release
+Patch0:        https://github.com/PlayOnLinux/POL-POM-4/compare/4.4...a8fe4bb.patch#/playonlinux-4.4-gita8fe4bb.patch
+BuildRequires: gcc
+BuildRequires: make
 BuildRequires: gzip
 BuildRequires: mesa-libGL-devel
-BuildRequires: python2 > 2.4
+BuildRequires: python3
+BuildRequires: python3-devel
+BuildRequires: python3-natsort
+BuildRequires: python3-wxpython4
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
 BuildRequires: libappstream-glib
-
-%global BUILD_DIR %{buildroot}/%{_datadir}/%{name}
+Requires:      python3
+Requires:      python3-natsort
+Requires:      python3-wxpython4
+# Required by python/mainwindow.py
+Requires:      nc
+Requires:      tar
+Requires:      cabextract
+Requires:      ImageMagick
+Requires:      wget
+Requires:      curl
+Requires:      gnupg2
+Requires:      xterm
+Requires:      gettext
+Requires:      icoutils
+Requires:      wine
+Requires:      unzip
+Requires:      jq
+Requires:      p7zip-plugins
+# Wine supported on these arches
+ExclusiveArch: %{arm} aarch64 %{ix86} x86_64
 
 %description
 New users can often find Wine to be intimidating and difficult to use.
-PlayOnLinux simplifies much of this and makes installing and using
-Windows programs easier.
+
+PlayOnLinux is a graphical front-end for Wine which allows to easily
+install and use numerous games and applications designed to run with
+Microsoft Windows.
+
 PlayOnLinux has the database of Windows applications from which the user
 can install desired application with a few clicks. It will automatically
-setup your Wine prefix and download any required Windows libraries.
+setup the Wine prefix and download any required Windows libraries.
 
 %prep
-%autosetup -n POL-POM-4-%{version}
+%setup -q -n POL-POM-4-%{version}
+%patch0 -p1
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" %make_build
+%make_build \
+  CFLAGS="$RPM_OPT_FLAGS $RPM_LD_FLAGS" \
+  PYTHON="%{__python3} -m py_compile"
 
 %install
 %make_install
+
+# Remove shebang from Python library
+sed '1{/^#!\//d}' -i %{buildroot}%{_datadir}/%{name}/python/setupwindow/gui_server.py
+
+# Remove misplaced files and directories
+rm -rf %{buildroot}%{_datadir}/%{name}/{bin,tests,CHANGELOG.md,LICENCE,README.md,TRANSLATORS}
+rm -f %{buildroot}%{_datadir}/%{name}/etc/PlayOnLinux.{appdata.xml,desktop}
+
+# Byte compile importable Python modules outside of standard paths
+%py_byte_compile %{__python3} %{buildroot}%{_datadir}/%{name}/python/
+
 %find_lang pol
 
-sed -i '1{/^#!\//d}' %{BUILD_DIR}/python/setupwindow/gui_server.py \
-                     %{BUILD_DIR}/tests/python/test_versionlower.py \
-                     %{BUILD_DIR}/tests/bash/test-versionlower
-
-grep -lZsr "#!/usr/bin/env python" %{BUILD_DIR}/python/ | xargs -0 -l sed -i -e "s%#\!/usr/bin/env python%#\!/usr/bin/env python2%"
-grep -lZsr "#!/usr/bin/python" %{BUILD_DIR}/python/ | xargs -0 -l sed -i -e "s%#\!/usr/bin/python%#\!/usr/bin/python2%"
-
 %check
-desktop-file-validate %{buildroot}/%{_datadir}/applications/PlayOnLinux.desktop
-appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/PlayOnLinux.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/PlayOnLinux.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/PlayOnLinux.appdata.xml
 
 %files -f pol.lang
-%doc README.md
 %license LICENCE doc/copyright
-%{_bindir}/*
-%{_mandir}/man1/*
+%doc CHANGELOG.md README.md TRANSLATORS
+%{_bindir}/%{name}
+%{_bindir}/%{name}-pkg
+%{_libexecdir}/%{name}-check_dd
 %{_datadir}/%{name}/
-%{_datadir}/pixmaps/*
-%{_datadir}/applications/*
-%{_datadir}/appdata/*
-%{_libexecdir}/playonlinux-check_dd
+%{_datadir}/appdata/PlayOnLinux.appdata.xml
+%{_datadir}/applications/PlayOnLinux.desktop
+%{_datadir}/pixmaps/%{name}*.png
+%{_mandir}/man1/%{name}.1*
+%{_mandir}/man1/%{name}-pkg.1*
 
 %changelog
+* Wed Mar 03 2021 Robert Scheck <robert@fedoraproject.org> 4.4-2
+- Correct license tag to include GPLv2+ and MIT (#1913737 #c9)
+
+* Thu Jan 07 2021 Robert Scheck <robert@fedoraproject.org> 4.4-1
+- Upgrade to 4.4 (#1913737, thanks to Patrick Scheck)
+
 * Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
@@ -163,4 +190,3 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/PlayOnLin
 
 * Wed Nov 11 2015 Jiri Konecny <jkonecny@redhat.com> 4.2.9-1
 - Package creation
-
