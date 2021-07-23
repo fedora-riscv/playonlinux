@@ -1,7 +1,7 @@
 Summary:       Graphical front-end for Wine
 Name:          playonlinux
 Version:       4.4
-Release:       2%{?dist}
+Release:       3%{?dist}
 # playonlinux itself is GPLv3 but uses other source codes, breakdown:
 # GPLv2+: python/{configurewindow/ConfigureWindow,debug,mainwindow,options,wrapper}.py
 # GPLv2+: python/{install/InstallWindow,setupwindow/{POL_SetupFrame,gui_server}}.py
@@ -97,6 +97,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/PlayOnLinu
 %{_mandir}/man1/%{name}-pkg.1*
 
 %changelog
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
 * Wed Mar 03 2021 Robert Scheck <robert@fedoraproject.org> 4.4-2
 - Correct license tag to include GPLv2+ and MIT (#1913737 #c9)
 
