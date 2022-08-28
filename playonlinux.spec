@@ -1,7 +1,7 @@
 Summary:       Graphical front-end for Wine
 Name:          playonlinux
 Version:       4.4
-Release:       5%{?dist}
+Release:       6%{?dist}
 # playonlinux itself is GPLv3 but uses other source codes, breakdown:
 # GPLv2+: python/{configurewindow/ConfigureWindow,debug,mainwindow,options,wrapper}.py
 # GPLv2+: python/{install/InstallWindow,setupwindow/{POL_SetupFrame,gui_server}}.py
@@ -35,7 +35,11 @@ Requires:      wget
 Requires:      curl
 Requires:      gnupg2
 Requires:      xterm
+%if 0%{?fedora} > 36 || 0%{?rhel} > 9
+Requires:      gettext-runtime
+%else
 Requires:      gettext
+%endif
 Requires:      icoutils
 Requires:      wine
 Requires:      unzip
@@ -97,6 +101,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/PlayOnLinu
 %{_mandir}/man1/%{name}-pkg.1*
 
 %changelog
+* Sun Aug 28 2022 Robert Scheck <robert@fedoraproject.org> 4.4-6
+- Depend on gettext-runtime for Fedora 37 and later (#2119025)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
